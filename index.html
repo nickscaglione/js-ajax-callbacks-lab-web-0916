@@ -16,6 +16,9 @@
       .flexbox-container > div:first-child {
         margin-right: 20px;
       }
+      img{
+        width: 40px;
+      }
     </style>
   </head>
   <body>
@@ -24,8 +27,11 @@
     </main>
     <div class="flexbox-container">
       <div>
+        <input type="text" name="searchTerms" id="searchTerms">
+        <a href="#" onclick="searchRepositories()"> Search Repositories </a>
         <h3>Repositories</h3>
-        <div id="results"></div>
+        <div id="results">
+        </div>
       </div>
       <div>
         <h3>Details</h3>
@@ -35,5 +41,27 @@
     <script src="jquery-3.1.0.min.js"></script>
     <script src="handlebars.js"></script>
     <script src="index.js"></script>
+    <script id="user-details-partial" type="text/x-handlebars-template">
+      <ul>
+       {{#each this}}
+         <li>
+           <h2><a href="{{html_url}}">{{name}}</a></h2>
+           <p>Description: {{description}}</p>
+           <a href="#" onclick="showCommits('{{url}}')"> Show Commits </a>
+         </li>
+        {{/each}}
+      </ul>
+    </script>
+    <script id="commits-partial" type="text/x-handlebars-template">
+      <ul>
+       {{#each this}}
+         <li>
+           <h2>{{sha}}</h2>
+           <p><img src="{{committer.avatar_url}}">    {{commit.author.name}}</p>
+           <p>{{commit.author.email}}</p>
+         </li>
+        {{/each}}
+      </ul>
+    </script>
   </body>
 </html>
